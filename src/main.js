@@ -5,6 +5,7 @@ const app = createApp(App)
 // Vue Router
 import VueRouter from './router'
 import ElementPlus from 'element-plus'
+import 'element-plus/theme-chalk/index.css'
 app.use(VueRouter)
 app.use(ElementPlus)
 

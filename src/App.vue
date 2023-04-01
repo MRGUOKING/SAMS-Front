@@ -1,13 +1,19 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <router-view></router-view>
+  <Header/>
+  <div style="height: 800px">
+    <router-view></router-view>
+  </div>
+
+
 </template>
 
 <script>
 
+import Header from "@/components/Header";
 export default {
   name: 'App',
   components: {
+    Header
   }
 }
 </script>
@@ -19,6 +25,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
