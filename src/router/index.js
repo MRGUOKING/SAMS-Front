@@ -4,25 +4,26 @@ import HelloWorld from "@/components/HelloWorld";
 import TicketManager from "@/components/ticket/TicketManager";
 import AddTicket from "@/components/ticket/AddTicket";
 import TicketSidebar from "@/components/ticket/TicketSidebar";
+import DiscountManager from "@/components/ticket/DiscountManager";
 
 const routes = [
     {
       path: '/',
-      redirect: '/ticket',
+      redirect: '/ticket/ticketManager',
     },
     {
         path: '/ticket',
         component: TicketSidebar,
         children: [
             {
-                path: 'testChildren',
-                name: 'testChildren',
+                path: 'ticketManager',
+                name: 'ticketManager',
                 component: TicketManager
             },
             {
-                path: 'addTicket',
-                name: 'addTicket',
-                component: AddTicket
+                path: 'discountManager',
+                name: 'discountManager',
+                component: DiscountManager
             }
         ]
     }
