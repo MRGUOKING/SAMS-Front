@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>门票</h1>
     <div style="float: right; margin-right: 50px; margin-bottom: 10px; margin-top: 20px">
       <el-button type="primary" @click="dialogFormVisible=true">新增</el-button>
     </div>
