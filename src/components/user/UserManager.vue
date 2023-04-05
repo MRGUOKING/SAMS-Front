@@ -1,6 +1,35 @@
 <template>
+  <div style="margin-top: 40px">
+      <el-form :inline="true" :model="formInline" class="demo-form-inline">
+        <el-form-item label="姓名">
+          <el-input v-model="formInline.user" placeholder="Approved by" />
+        </el-form-item>
+        <el-form-item label="性别">
+          <el-select v-model="formInline.region" placeholder="Activity zone">
+            <el-option label="Zone one" value="shanghai" />
+            <el-option label="Zone two" value="beijing" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="身份">
+          <el-select v-model="formInline.region" placeholder="Activity zone">
+            <el-option label="游客" value="shanghai" />
+            <el-option label="普通管理员" value="beijing" />
+            <el-option label="超级管理员" value="beijing" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="创建日期">
+
+        </el-form-item>
+
+        <el-form-item>
+          <el-button type="primary" @click="onSubmit">Query</el-button>
+        </el-form-item>
+      </el-form>
+    
+  </div>
+
+
   <div>
-    <h1>门票</h1>
     <div style="float: right; margin-right: 50px; margin-bottom: 10px; margin-top: 20px">
       <el-button type="primary" @click="dialogFormVisible=true">新增</el-button>
     </div>
@@ -34,10 +63,10 @@
 
   </div>
 
-<!--  新增门票-->
+  <!--  新增门票-->
   <div>
-    <el-dialog v-model="dialogFormVisible" title="修改门票" size="small" >
-      <el-form :model="form" :rules="rules">
+    <el-dialog v-model="dialogFormVisible" title="修改门票" size="small" :rules="rules">
+      <el-form :model="form">
         <el-form-item label="名称" :label-width="formLabelWidth" required>
           <el-input v-model="form.name" autocomplete="off" />
         </el-form-item>
@@ -64,10 +93,11 @@
 
 <script>
 import {reactive, ref} from "@vue/reactivity";
-import {ElMessage, ElMessageBox, FormInstance, FormRules} from 'element-plus'
+import {ElMessage, ElMessageBox} from "element-plus";
 
 export default {
-name: "TicketManager",
+name: "UserManager",
+
   setup() {
     const handleClick = () => {
       console.log('click')
@@ -124,6 +154,14 @@ name: "TicketManager",
         tag: 'Office',
       },
     ]
+    const formInline = reactive({
+      user: '',
+      region: '',
+    })
+
+    const onSubmit = () => {
+      console.log('submit!')
+    }
     const total = 400;
     const currentPage = 1;
     const pageSize = 10;
@@ -191,6 +229,8 @@ name: "TicketManager",
       gridData,
       dialogFormVisible,
       formLabelWidth,
+      formInline,
+      onSubmit,
       deleteTicket,
       handlePriceInput,
     }

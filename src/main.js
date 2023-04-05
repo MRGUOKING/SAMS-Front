@@ -8,6 +8,5 @@ import ElementPlus from 'element-plus'
 import 'element-plus/theme-chalk/index.css'
 app.use(VueRouter)
 app.use(ElementPlus)
-
 // 挂载
 app.mount('#app')

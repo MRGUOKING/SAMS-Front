@@ -1,8 +1,35 @@
 <template>
+<!--  筛选框-->
+  <div style="margin-top: 40px">
+      <el-form :inline="true" :model="formInline" class="demo-form-inline">
+        <el-form-item label="日期">
+          <el-date-picker
+              v-model="formInline.dateRange"
+              type="daterange"
+              unlink-panels
+              range-separator="To"
+              start-placeholder="Start date"
+              end-placeholder="End date"
+              :shortcuts="shortcuts"
+              :size="size"
+          />
+        </el-form-item>
+        <el-form-item label="状态">
+          <el-select v-model="formInline.region" placeholder="Activity zone">
+            <el-option label="未开始" value="shanghai" />
+            <el-option label="已结束" value="beijing" />
+            <el-option label="已退款" value="beijing" />
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="onSubmit">查询</el-button>
+        </el-form-item>
+      </el-form>
+
+  </div>
+
   <div>
-    <h1>门票</h1>
     <div style="float: right; margin-right: 50px; margin-bottom: 10px; margin-top: 20px">
-      <el-button type="primary" @click="dialogFormVisible=true">新增</el-button>
     </div>
 
 
@@ -11,12 +38,13 @@
       <el-table-column prop="name" label="名称" />
       <el-table-column prop="state" label="描述" />
       <el-table-column prop="city" label="价格"/>
+      <el-table-column prop="city" label="状态"/>
       <el-table-column align="right">
         <template #header>
           <el-input v-model="search" size="media" placeholder="搜索" />
         </template>
         <template #default="scope">
-          <el-button link type="primary" size="small" @click="handleClick">编辑</el-button>
+          <el-button link type="primary" size="small" @click="handleClick">同意</el-button>
           <el-button link type="danger" size="small" @click="deleteTicket">删除</el-button>
         </template>
       </el-table-column>
@@ -34,10 +62,10 @@
 
   </div>
 
-<!--  新增门票-->
+  <!--  新增门票-->
   <div>
-    <el-dialog v-model="dialogFormVisible" title="修改门票" size="small" >
-      <el-form :model="form" :rules="rules">
+    <el-dialog v-model="dialogFormVisible" title="修改门票" size="small" :rules="rules">
+      <el-form :model="form">
         <el-form-item label="名称" :label-width="formLabelWidth" required>
           <el-input v-model="form.name" autocomplete="off" />
         </el-form-item>
@@ -64,10 +92,11 @@
 
 <script>
 import {reactive, ref} from "@vue/reactivity";
-import {ElMessage, ElMessageBox, FormInstance, FormRules} from 'element-plus'
+import {ElMessage, ElMessageBox} from "element-plus";
 
 export default {
-name: "TicketManager",
+name: "UserManager",
+
   setup() {
     const handleClick = () => {
       console.log('click')
@@ -124,6 +153,43 @@ name: "TicketManager",
         tag: 'Office',
       },
     ]
+    const shortcuts = [
+      {
+        text: 'Last week',
+        value: () => {
+          const end = new Date()
+          const start = new Date()
+          start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+          return [start, end]
+        },
+      },
+      {
+        text: 'Last month',
+        value: () => {
+          const end = new Date()
+          const start = new Date()
+          start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+          return [start, end]
+        },
+      },
+      {
+        text: 'Last 3 months',
+        value: () => {
+          const end = new Date()
+          const start = new Date()
+          start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+          return [start, end]
+        },
+      }];
+    const formInline = reactive({
+      dateRange: [],
+      user: '',
+      region: '',
+    })
+
+    const onSubmit = () => {
+      console.log('submit!')
+    }
     const total = 400;
     const currentPage = 1;
     const pageSize = 10;
@@ -191,6 +257,9 @@ name: "TicketManager",
       gridData,
       dialogFormVisible,
       formLabelWidth,
+      formInline,
+      shortcuts,
+      onSubmit,
       deleteTicket,
       handlePriceInput,
     }

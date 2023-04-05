@@ -1,5 +1,5 @@
 <template>
-  <Header/>
+  <Header v-if="!$route.path.includes('/login')" />
   <div style="height: 800px">
     <router-view></router-view>
   </div>
